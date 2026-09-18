@@ -29,6 +29,13 @@ jobs:
           done
           kubectl -n platform-system get application secure-platform-prod -o yaml
           exit 1
+      - name: Diagnose failed deployment
+        if: failure()
+        run: |
+          kubectl -n app-prod get pods,deployments -o wide || true
+          kubectl -n app-prod describe pods || true
+          kubectl -n app-prod get events --sort-by=.lastTimestamp || true
+          kubectl -n app-prod logs -l app.kubernetes.io/name=demo-api --all-containers --tail=80 --prefix || true
       - name: Verify admission denial
         run: |
           if kubectl -n app-prod run mutable-image --image=nginx:latest --restart=Never; then

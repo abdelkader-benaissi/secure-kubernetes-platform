@@ -1,0 +1,9 @@
+replicaCount: 2
+image:
+  repository: nginxinc/nginx-unprivileged
+  digest: "sha256:62a904036bfc0e4a4f2b556e34cbf17bc136b47fde8cdb4628762725f48c5782"
+  pullPolicy: IfNotPresent
+resources:
+  requests: {cpu: 50m, memory: 64Mi}
+  limits: {cpu: 250m, memory: 128Mi}
+autoscaling: {minReplicas: 2, maxReplicas: 6, targetCPUUtilizationPercentage: 70}

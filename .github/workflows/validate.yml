@@ -1,0 +1,23 @@
+name: validate
+on:
+  pull_request:
+  push: {branches: [main]}
+permissions: {contents: read}
+jobs:
+  manifests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: azure/setup-helm@v4
+      - uses: imranismail/setup-kustomize@v2
+      - run: helm lint charts/demo-api
+      - run: helm template demo charts/demo-api --namespace app-dev > /tmp/rendered.yaml
+      - run: helm template demo-dev charts/demo-api --namespace app-dev -f environments/dev/values.yaml > /tmp/dev.yaml
+      - run: helm template demo-prod charts/demo-api --namespace app-prod -f environments/prod/values.yaml > /tmp/prod.yaml
+      - run: kustomize build platform/base > /tmp/platform.yaml
+      - uses: yannh/kubeconform-action@v1
+        with: {kubernetes-version: '1.34.0', summary: 'true', strict: 'true', ignore-missing-schemas: 'true', files: '/tmp/rendered.yaml,/tmp/dev.yaml,/tmp/prod.yaml,/tmp/platform.yaml'}
+      - uses: bridgecrewio/checkov-action@v12
+        with: {directory: '.', framework: kubernetes, quiet: true}
+      - uses: aquasecurity/trivy-action@0.33.1
+        with: {scan-type: config, scan-ref: '.', severity: 'HIGH,CRITICAL', exit-code: '1'}

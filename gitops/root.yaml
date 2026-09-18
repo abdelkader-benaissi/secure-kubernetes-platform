@@ -1,0 +1,21 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata: {name: secure-platform-prod, namespace: platform-system}
+spec:
+  project: default
+  source:
+    repoURL: REPO_URL
+    targetRevision: main
+    path: charts/demo-api
+    helm:
+      releaseName: demo-api-prod
+      valuesObject:
+        replicaCount: 3
+        autoscaling:
+          minReplicas: 3
+          maxReplicas: 6
+          targetCPUUtilizationPercentage: 70
+  destination: {server: https://kubernetes.default.svc, namespace: app-prod}
+  syncPolicy:
+    automated: {prune: true, selfHeal: true}
+    syncOptions: [CreateNamespace=true]

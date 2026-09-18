@@ -1,0 +1,15 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: demo-api-availability
+  namespace: monitoring
+  labels: {release: monitoring}
+spec:
+  groups:
+    - name: demo-api.availability
+      rules:
+        - alert: DemoApiHasNoAvailableReplicas
+          expr: kube_deployment_status_replicas_available{namespace="app-prod",deployment="demo-api-prod"} < 1
+          for: 5m
+          labels: {severity: critical}
+          annotations: {summary: "The production demo API has no available replicas"}

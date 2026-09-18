@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 490" role="img" aria-labelledby="title desc">
+  <title id="title">Secure Kubernetes platform architecture</title>
+  <desc id="desc">Git and CI feed Argo CD. Argo deploys a protected demo API inside Kubernetes. Cilium, Kyverno, cert-manager, Gateway API and monitoring govern the workload.</desc>
+  <defs>
+    <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#0b1220"/><stop offset="1" stop-color="#142641"/></linearGradient>
+    <marker id="arrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto"><path d="M0 0L8 4 0 8Z" fill="#7dd3fc"/></marker>
+  </defs>
+  <rect width="1200" height="490" rx="24" fill="url(#bg)"/>
+  <text x="50" y="52" fill="#f8fafc" font-family="Arial,sans-serif" font-size="26" font-weight="700">Secure Kubernetes Platform</text>
+  <text x="50" y="82" fill="#94a3b8" font-family="Arial,sans-serif" font-size="16">GitOps delivery · policy enforcement · encrypted ingress · operational visibility</text>
+  <rect x="40" y="117" width="250" height="124" rx="16" fill="#172a44" stroke="#38bdf8" stroke-width="2"/>
+  <text x="60" y="159" fill="#f8fafc" font-family="Arial,sans-serif" font-size="21" font-weight="700">Git repository</text>
+  <text x="60" y="188" fill="#bae6fd" font-family="Arial,sans-serif" font-size="16">Helm chart + platform YAML</text>
+  <text x="60" y="213" fill="#94a3b8" font-family="Arial,sans-serif" font-size="14">CI: lint · schema · security</text>
+  <path d="M290 179H364" fill="none" stroke="#7dd3fc" stroke-width="3" marker-end="url(#arrow)"/>
+  <rect x="376" y="117" width="230" height="124" rx="16" fill="#172a44" stroke="#38bdf8" stroke-width="2"/>
+  <text x="396" y="159" fill="#f8fafc" font-family="Arial,sans-serif" font-size="21" font-weight="700">Argo CD</text>
+  <text x="396" y="188" fill="#bae6fd" font-family="Arial,sans-serif" font-size="16">Reconcile prod workload</text>
+  <text x="396" y="213" fill="#94a3b8" font-family="Arial,sans-serif" font-size="14">Sync + self-heal</text>
+  <path d="M606 179H678" fill="none" stroke="#7dd3fc" stroke-width="3" marker-end="url(#arrow)"/>
+  <rect x="690" y="107" width="470" height="148" rx="18" fill="#152c37" stroke="#34d399" stroke-width="2"/>
+  <text x="714" y="143" fill="#a7f3d0" font-family="Arial,sans-serif" font-size="16" font-weight="700">KUBERNETES / app-prod</text>
+  <text x="714" y="179" fill="#f8fafc" font-family="Arial,sans-serif" font-size="22" font-weight="700">demo-api</text>
+  <text x="714" y="209" fill="#cbd5e1" font-family="Arial,sans-serif" font-size="16">Digest image · restricted Pods · HPA · PDB</text>
+  <rect x="40" y="290" width="260" height="135" rx="16" fill="#182d39" stroke="#34d399"/>
+  <text x="60" y="327" fill="#f8fafc" font-family="Arial,sans-serif" font-size="19" font-weight="700">Gateway + TLS</text>
+  <text x="60" y="357" fill="#cbd5e1" font-family="Arial,sans-serif" font-size="15">Gateway API · cert-manager</text>
+  <text x="60" y="384" fill="#94a3b8" font-family="Arial,sans-serif" font-size="14">HTTPS to demo.local</text>
+  <rect x="330" y="290" width="260" height="135" rx="16" fill="#182d39" stroke="#34d399"/>
+  <text x="350" y="327" fill="#f8fafc" font-family="Arial,sans-serif" font-size="19" font-weight="700">Policy + network</text>
+  <text x="350" y="357" fill="#cbd5e1" font-family="Arial,sans-serif" font-size="15">Kyverno · PSA · Cilium</text>
+  <text x="350" y="384" fill="#94a3b8" font-family="Arial,sans-serif" font-size="14">Admission + default deny</text>
+  <rect x="620" y="290" width="260" height="135" rx="16" fill="#182d39" stroke="#34d399"/>
+  <text x="640" y="327" fill="#f8fafc" font-family="Arial,sans-serif" font-size="19" font-weight="700">Observability</text>
+  <text x="640" y="357" fill="#cbd5e1" font-family="Arial,sans-serif" font-size="15">Prometheus · Grafana</text>
+  <text x="640" y="384" fill="#94a3b8" font-family="Arial,sans-serif" font-size="14">Availability alert + metrics</text>
+  <rect x="910" y="290" width="250" height="135" rx="16" fill="#182d39" stroke="#34d399"/>
+  <text x="930" y="327" fill="#f8fafc" font-family="Arial,sans-serif" font-size="19" font-weight="700">Runtime flows</text>
+  <text x="930" y="357" fill="#cbd5e1" font-family="Arial,sans-serif" font-size="15">Hubble · DNS policy</text>
+  <text x="930" y="384" fill="#94a3b8" font-family="Arial,sans-serif" font-size="14">Allowed / denied traffic</text>
+  <text x="50" y="467" fill="#94a3b8" font-family="Arial,sans-serif" font-size="13">Architecture of the repository’s Kind lab · components require deployment and live verification</text>
+</svg>

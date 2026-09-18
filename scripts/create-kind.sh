@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+set -euo pipefail
+kind create cluster --config kind.yaml
+kubectl wait --for=condition=Ready nodes --all --timeout=5m || true

@@ -1,0 +1,6 @@
+apiVersion: v2
+name: demo-api
+description: Hardened workload used to validate the platform controls
+type: application
+version: 0.1.0
+appVersion: "1.27.4"

@@ -1,0 +1,38 @@
+name: e2e
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+permissions: {contents: read}
+jobs:
+  kind:
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - uses: actions/checkout@v4
+      - uses: helm/kind-action@v1
+        with: {install_only: true}
+      - uses: azure/setup-helm@v4
+      - run: make cluster
+      - name: Bootstrap platform
+        env:
+          REPO_URL: ${{ github.server_url }}/${{ github.repository }}.git
+        run: make bootstrap
+      - run: kubectl wait -n app-prod --for=condition=Ready certificate/demo-api-tls --timeout=5m
+      - name: Wait for GitOps health
+        run: |
+          for attempt in $(seq 1 60); do
+            health=$(kubectl -n platform-system get application secure-platform-prod -o jsonpath='{.status.health.status}' 2>/dev/null || true)
+            sync=$(kubectl -n platform-system get application secure-platform-prod -o jsonpath='{.status.sync.status}' 2>/dev/null || true)
+            [[ "$health" == Healthy && "$sync" == Synced ]] && exit 0
+            sleep 10
+          done
+          kubectl -n platform-system get application secure-platform-prod -o yaml
+          exit 1
+      - name: Verify admission denial
+        run: |
+          if kubectl -n app-prod run mutable-image --image=nginx:latest --restart=Never; then
+            kubectl -n app-prod delete pod mutable-image --ignore-not-found
+            exit 1
+          fi
+      - run: make evidence
